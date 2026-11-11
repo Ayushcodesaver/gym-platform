@@ -1,0 +1,13 @@
+node_modules/
+.next/
+.expo/
+dist/
+out/
+.env
+.env.local
+.env*.local
+*.log
+.DS_Store
+supabase/.temp/
+apps/mobile/ios/Pods/
+coverage/

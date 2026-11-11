@@ -1,0 +1,25 @@
+{
+  "expo": {
+    "name": "Gym Member",
+    "slug": "gym-member",
+    "version": "0.1.0",
+    "scheme": "gymmember",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "splash": { "backgroundColor": "#0B0D10", "resizeMode": "contain" },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.gymplatform.member",
+      "infoPlist": { "NSCameraUsageDescription": "Camera is used to scan your gym's QR code for check-in." }
+    },
+    "android": {
+      "package": "com.gymplatform.member",
+      "permissions": ["CAMERA"]
+    },
+    "plugins": [
+      "expo-router",
+      ["expo-camera", { "cameraPermission": "Allow $(PRODUCT_NAME) to scan gym QR codes." }]
+    ],
+    "experiments": { "typedRoutes": true }
+  }
+}

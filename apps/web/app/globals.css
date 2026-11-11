@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Motion tokens (design-systems/motion-system): 150–250ms, reduced-motion safe */
+:root {
+  --dur-fast: 150ms;
+  --dur-normal: 200ms;
+  --dur-slow: 250ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  @apply bg-bg text-text-hi font-sans text-base antialiased;
+}
+
+::selection { background: rgba(249, 115, 22, 0.35); }
+
+/* Visible focus for keyboard nav (ui-ux-pro-max priority 1) */
+:focus-visible {
+  outline: 2px solid #f97316;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.skeleton {
+  @apply animate-pulse rounded bg-elevated;
+}
+
+input, select, textarea {
+  @apply bg-elevated border border-line rounded-btn px-3 py-2 text-base text-text-hi placeholder:text-text-low transition-colors duration-150;
+}
+input:focus, select:focus, textarea:focus { border-color: #f97316; outline: none; }
+input.error { border-color: #ef4444; }

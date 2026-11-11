@@ -1,0 +1,27 @@
+-- 007: indexes (docs/database.md §48–49)
+create index if not exists idx_members_gym on members (gym_id);
+create index if not exists idx_members_phone on members (phone);
+create index if not exists idx_members_status_gym on members (gym_id, status);
+create index if not exists idx_memberships_gym on memberships (gym_id);
+create index if not exists idx_memberships_member on memberships (member_id);
+create index if not exists idx_memberships_expiry on memberships (expiry_date);
+create index if not exists idx_memberships_status on memberships (status);
+create index if not exists idx_memberships_gym_status on memberships (gym_id, status);
+create index if not exists idx_memberships_gym_expiry on memberships (gym_id, expiry_date);
+create index if not exists idx_attendance_gym on attendance (gym_id);
+create index if not exists idx_attendance_member on attendance (member_id);
+create index if not exists idx_attendance_time on attendance (checked_in_at);
+create index if not exists idx_attendance_member_time on attendance (member_id, checked_in_at desc);
+create index if not exists idx_payments_gym on payments (gym_id);
+create index if not exists idx_payments_member on payments (member_id);
+create index if not exists idx_payments_status on payments (status);
+create index if not exists idx_no_show_gym on no_show_cases (gym_id);
+create index if not exists idx_no_show_status on no_show_cases (status);
+create index if not exists idx_no_show_gym_status on no_show_cases (gym_id, status);
+create index if not exists idx_followups_gym on follow_ups (gym_id);
+create index if not exists idx_followups_member on follow_ups (member_id);
+create index if not exists idx_followups_next_action on follow_ups (next_action_at);
+create index if not exists idx_followups_gym_action on follow_ups (gym_id, next_action_at);
+create index if not exists idx_notifications_member on notifications (member_id);
+create index if not exists idx_audit_logs_gym_time on audit_logs (gym_id, created_at desc);
+create index if not exists idx_user_profiles_gym on user_profiles (gym_id);
