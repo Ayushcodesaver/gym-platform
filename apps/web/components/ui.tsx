@@ -30,10 +30,10 @@ export function Card({ children, className = "" }: { children: React.ReactNode; 
   );
 }
 
-/** Status = dot + text (never color alone — docs §17). */
+/** Status = dot + text (never color alone — docs §17). States read apart: on, waiting, off, bad. */
 const STATUS_TINT: Record<string, string> = {
-  active: "bg-accent", pending: "bg-warning", frozen: "bg-text-mid",
-  expired: "bg-danger", cancelled: "bg-danger", paid: "bg-accent",
+  active: "bg-text-hi", pending: "bg-warning", frozen: "bg-text-mid",
+  expired: "bg-danger", cancelled: "bg-danger", paid: "bg-text-hi",
   failed: "bg-danger", open: "bg-danger", in_progress: "bg-warning",
   resolved: "bg-text-mid", inactive: "bg-text-low", suspended: "bg-danger",
 };

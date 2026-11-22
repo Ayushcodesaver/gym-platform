@@ -45,7 +45,7 @@ export default function StaffPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-small">
               <thead>
-                <tr className="border-b border-line text-left text-caption uppercase text-text-low">
+                <tr className="border-b border-line text-left text-caption text-text-low">
                   <th className="px-5 py-3">Name</th>
                   <th className="px-5 py-3">Role</th>
                   <th className="px-5 py-3">App role</th>

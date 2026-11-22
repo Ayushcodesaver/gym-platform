@@ -84,7 +84,7 @@ export default function MembersPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-small">
               <thead>
-                <tr className="border-b border-line text-left text-caption uppercase text-text-low">
+                <tr className="border-b border-line text-left text-caption text-text-low">
                   <th className="px-5 py-3">Member</th>
                   <th className="px-5 py-3">Plan</th>
                   <th className="px-5 py-3">Status</th>
@@ -99,7 +99,7 @@ export default function MembersPage() {
                       <Link href={`/members/${m.id}`} className="font-medium hover:text-accent">
                         {m.first_name} {m.last_name ?? ""}
                       </Link>
-                      <div className="text-caption text-text-low">{m.member_code} · {m.phone}</div>
+                      <div className="text-caption text-text-low"><span className="font-mono">{m.member_code}</span> · {m.phone}</div>
                     </td>
                     <td className="px-5 py-3 text-text-mid">{m.plan_name ?? "—"}</td>
                     <td className="px-5 py-3"><StatusBadge status={m.membership_status ?? m.status} /></td>

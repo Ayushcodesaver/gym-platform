@@ -42,7 +42,7 @@ export function Sidebar() {
     <aside className="fixed inset-y-0 left-0 z-30 hidden w-60 flex-col border-r border-line bg-bg lg:flex">
       <div className="flex h-16 items-center gap-2 border-b border-line px-5">
         <Dumbbell size={20} className="text-accent" aria-hidden />
-        <span className="truncate font-semibold tracking-tight">{me?.gym?.name ?? "Gym Platform"}</span>
+        <span className="truncate font-medium">{me?.gym?.name ?? "Gym Platform"}</span>
       </div>
       <nav aria-label="Primary" className="flex flex-1 flex-col gap-0.5 overflow-y-auto p-3">
         {NAV.map(({ href, label, icon: Icon, permission }) => {

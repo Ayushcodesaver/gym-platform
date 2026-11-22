@@ -53,7 +53,7 @@ export default function AddOnsPage() {
               <div className="flex items-start justify-between">
                 <div>
                   <h3 className="text-h3">{a.name}</h3>
-                  <p className="mt-0.5 text-caption uppercase text-text-low">{a.type.replace("_", " ")}</p>
+                  <p className="mt-0.5 capitalize text-caption text-text-low">{a.type.replace("_", " ")}</p>
                 </div>
                 <div className="flex items-center gap-1">
                   <StatusBadge status={a.status} />
@@ -65,7 +65,7 @@ export default function AddOnsPage() {
               </div>
               {a.description && <p className="mt-2 text-small text-text-mid">{a.description}</p>}
               <div className="mt-4 flex items-center justify-between">
-                <p className="text-h3 font-bold tabular-nums">{inr(a.price)}</p>
+                <p className="text-h3 font-medium tabular-nums">{inr(a.price)}</p>
                 <p className="text-caption text-text-low">
                   {a.session_count ? `${a.session_count} sessions` : a.stock != null ? `${a.stock} in stock` : ""}
                 </p>

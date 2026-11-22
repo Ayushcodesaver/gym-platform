@@ -19,6 +19,7 @@
 
 body {
   @apply bg-bg text-text-hi font-sans text-base antialiased;
+  caret-color: #f97316;
 }
 
 ::selection { background: rgba(249, 115, 22, 0.35); }
@@ -29,6 +30,13 @@ body {
   outline-offset: 2px;
   border-radius: 4px;
 }
+
+/* Finish pass: headlines never orphan, paragraphs never widow */
+h1, h2, h3 { text-wrap: balance; }
+p { text-wrap: pretty; }
+
+/* Quiet scrollbars in the ramp's hairline tone */
+* { scrollbar-width: thin; scrollbar-color: #222831 transparent; }
 
 .skeleton {
   @apply animate-pulse rounded bg-elevated;

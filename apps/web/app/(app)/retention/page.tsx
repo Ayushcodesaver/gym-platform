@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { Button, Card, Input, Modal, PageHeader, Skeleton, ErrorState, useToast } from "@/components/ui";
-import { AlertTriangle, Phone } from "lucide-react";
+import { Phone } from "lucide-react";
 
 interface Case {
   id: string; member_id: string; absent_days: number; last_attendance_at: string | null; status: string;
@@ -77,9 +77,7 @@ export default function RetentionPage() {
                   <p className="text-h3">{c.members?.first_name} {c.members?.last_name}</p>
                   <p className="text-caption text-text-low">{c.members?.member_code}</p>
                 </div>
-                <span className="flex items-center gap-1.5 rounded-btn border border-warning/40 bg-warning/10 px-2.5 py-1 text-caption text-warning">
-                  <AlertTriangle size={13} aria-hidden /> {c.absent_days} days
-                </span>
+                <span className="shrink-0 text-small tabular-nums text-warning">{c.absent_days} days absent</span>
               </div>
               <p className="mt-2 text-small text-text-mid">
                 Last visited: {c.last_attendance_at ? new Date(c.last_attendance_at).toLocaleDateString("en-IN") : "never"}

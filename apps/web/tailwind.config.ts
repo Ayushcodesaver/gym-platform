@@ -19,7 +19,10 @@ const config: Config = {
         danger: "#EF4444",
         light: { bg: "#F7F7F5", surface: "#FFFFFF", line: "#E5E7EB", "text-hi": "#17191C", "text-mid": "#626871" },
       },
-      fontFamily: { sans: ["Inter", "ui-sans-serif", "system-ui"] },
+      fontFamily: {
+        sans: ["var(--font-inter)", "ui-sans-serif", "system-ui"],
+        mono: ["var(--font-jetbrains)", "ui-monospace", "monospace"],
+      },
       fontSize: {
         display: ["2rem", { lineHeight: "1.2", letterSpacing: "-0.02em" }],
         h1: ["1.75rem", { lineHeight: "1.2", letterSpacing: "-0.02em" }],
@@ -27,7 +30,7 @@ const config: Config = {
         h3: ["1.125rem", { lineHeight: "1.4" }],
         base: ["0.9375rem", { lineHeight: "1.5" }],
         small: ["0.8125rem", { lineHeight: "1.5" }],
-        caption: ["0.71875rem", { lineHeight: "1.4", letterSpacing: "0.05em" }],
+        caption: ["0.71875rem", { lineHeight: "1.4" }],
       },
       borderRadius: { btn: "10px", card: "14px", modal: "16px" },
       spacing: {

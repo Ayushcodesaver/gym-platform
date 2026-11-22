@@ -7,7 +7,7 @@ import { Search, Bell, UserRound } from "lucide-react";
 export function Topbar() {
   const { user } = useUser();
   return (
-    <header className="sticky top-0 z-20 flex h-16 items-center gap-4 border-b border-line bg-bg/95 px-5 backdrop-blur">
+    <header className="sticky top-0 z-20 flex h-16 items-center gap-4 border-b border-line bg-bg px-5">
       <div className="relative hidden max-w-md flex-1 md:block">
         <Search size={16} aria-hidden className="absolute left-3 top-1/2 -translate-y-1/2 text-text-low" />
         <input aria-label="Search members" placeholder="Search members…"

@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import QRCode from "qrcode";
 import { Button, Card, PageHeader, Skeleton, ErrorState, Input, Modal, useToast } from "@/components/ui";
-import { QrCode, UserPlus } from "lucide-react";
+import { UserPlus } from "lucide-react";
 
 interface AttendanceRow {
   id: string; checked_in_at: string; source: string;
@@ -61,8 +61,11 @@ export default function AttendancePage() {
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
         <Card>
-          <p className="text-caption uppercase text-text-mid">Today&apos;s check-ins</p>
-          <p className="mt-2 text-h1 font-bold tabular-nums">{todayCount}</p>
+          <p className="text-small text-text-mid">Today&apos;s check-ins</p>
+          <p className="mt-2 flex items-center gap-2.5 text-h1 font-medium tabular-nums leading-none">
+            <span aria-hidden className="h-2 w-2 shrink-0 animate-pulse rounded-full bg-accent" />
+            {todayCount}
+          </p>
         </Card>
 
         {/* Scan QR — the main CTA of this screen (docs §19) */}
@@ -77,7 +80,8 @@ export default function AttendancePage() {
                 <div className="skeleton h-[220px] w-[220px]" />
               )}
               <p className="flex items-center gap-1.5 text-caption text-text-low">
-                <QrCode size={12} aria-hidden /> rotates every 60s
+                <span aria-hidden className="h-1.5 w-1.5 shrink-0 animate-pulse rounded-full bg-accent" />
+                Rotates every 60 s
               </p>
             </div>
             <div className="max-w-xs">
@@ -100,7 +104,7 @@ export default function AttendancePage() {
           <div className="overflow-x-auto">
             <table className="w-full text-small">
               <thead>
-                <tr className="border-b border-line text-left text-caption uppercase text-text-low">
+                <tr className="border-b border-line text-left text-caption text-text-low">
                   <th className="px-5 py-3">Member</th>
                   <th className="px-5 py-3">Time</th>
                   <th className="px-5 py-3">Source</th>

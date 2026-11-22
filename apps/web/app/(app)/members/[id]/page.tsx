@@ -78,7 +78,8 @@ export default function MemberDetailPage() {
         <div>
           <h1 className="text-h1">{member.first_name} {member.last_name ?? ""}</h1>
           <p className="text-small text-text-mid">
-            Member #{member.member_code} · {member.phone} · joined {member.join_date}
+            Member <span className="font-mono">{member.member_code}</span> · {member.phone} ·
+            joined {new Date(member.join_date).toLocaleDateString("en-IN", { dateStyle: "medium" })}
           </p>
         </div>
         <div className="ml-auto flex flex-wrap gap-2">
@@ -104,9 +105,11 @@ export default function MemberDetailPage() {
           <h2 className="text-h3">Membership</h2>
           {activeMembership ? (
             <>
-              <p className="mt-2 text-h2 font-bold">{activeMembership.plans?.name ?? "—"}</p>
-              <p className="text-small text-text-mid">
-                {activeMembership.start_date} → {activeMembership.expiry_date}
+              <p className="mt-2 text-h2 font-medium">{activeMembership.plans?.name ?? "—"}</p>
+              <p className="text-small tabular-nums text-text-mid">
+                {new Date(activeMembership.start_date).toLocaleDateString("en-IN", { dateStyle: "medium" })}
+                {" → "}
+                {new Date(activeMembership.expiry_date).toLocaleDateString("en-IN", { dateStyle: "medium" })}
               </p>
               <div className="mt-2"><StatusBadge status={activeMembership.status} /></div>
               <div className="mt-4 flex flex-wrap gap-2">
@@ -131,7 +134,7 @@ export default function MemberDetailPage() {
             <p className="mt-2 text-small text-text-mid">No membership yet.</p>
           )}
           <div className="mt-4 border-t border-line pt-3 text-small text-text-mid">
-            Streak: <span className="text-accent font-semibold">{streak?.current_streak ?? 0}</span> days ·
+            Streak: <span className="font-medium text-text-hi">{streak?.current_streak ?? 0}</span> days ·
             best {streak?.best_streak ?? 0}
           </div>
         </Card>
@@ -145,7 +148,7 @@ export default function MemberDetailPage() {
             {attendance.map((a) => (
               <li key={a.id} className="flex justify-between py-2">
                 <span className="text-text-mid">{new Date(a.checked_in_at).toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" })}</span>
-                <span className="uppercase text-caption text-text-low">{a.source}</span>
+                <span className="capitalize text-caption text-text-low">{a.source}</span>
               </li>
             ))}
           </ul>

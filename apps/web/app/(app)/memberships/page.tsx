@@ -78,8 +78,8 @@ export default function MembershipsPage() {
                   </button>
                 </div>
               </div>
-              <p className="mt-2 text-h3 font-bold tabular-nums">
-                {inr(p.price)}{p.discount > 0 && <span className="ml-2 text-small font-normal text-warning line-through">{inr(p.discount)}</span>}
+              <p className="mt-2 text-h3 font-medium tabular-nums">
+                {inr(p.price)}{p.discount > 0 && <span className="ml-2 text-small font-normal text-text-low line-through">{inr(p.discount)}</span>}
               </p>
             </Card>
           ))}
@@ -96,7 +96,7 @@ export default function MembershipsPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-small">
               <thead>
-                <tr className="border-b border-line text-left text-caption uppercase text-text-low">
+                <tr className="border-b border-line text-left text-caption text-text-low">
                   <th className="px-5 py-3">Member</th>
                   <th className="px-5 py-3">Plan</th>
                   <th className="px-5 py-3">Status</th>

@@ -17,8 +17,14 @@ export async function GET() {
     const monthStart = new Date();
     monthStart.setDate(1);
     monthStart.setHours(0, 0, 0, 0);
+    const prevMonthStart = new Date(monthStart);
+    prevMonthStart.setMonth(prevMonthStart.getMonth() - 1);
+    const yesterdayStart = new Date(todayStart);
+    yesterdayStart.setDate(yesterdayStart.getDate() - 1);
+    const trendStart = new Date(todayStart);
+    trendStart.setDate(trendStart.getDate() - 13);
 
-    const [members, active, checkinsToday, active7, expiring, revenue, addons, followups, failedPayments, redList] =
+    const [members, active, checkinsToday, active7, expiring, revenue, revenuePrev, addons, followups, failedPayments, redList, trendRows, checkinsYesterday] =
       await Promise.all([
         db.from("members").select("id", { count: "exact", head: true })
           .eq("gym_id", ctx.gymId).neq("status", "deleted"),
@@ -33,6 +39,8 @@ export async function GET() {
           .lte("expiry_date", in14).gte("expiry_date", today).order("expiry_date").limit(10),
         db.from("payments").select("amount").eq("gym_id", ctx.gymId).eq("status", "paid")
           .gte("created_at", monthStart.toISOString()),
+        db.from("payments").select("amount").eq("gym_id", ctx.gymId).eq("status", "paid")
+          .gte("created_at", prevMonthStart.toISOString()).lt("created_at", monthStart.toISOString()),
         db.from("add_on_orders").select("id, add_ons(name), payment_id, status", { count: "exact" })
           .eq("gym_id", ctx.gymId).eq("status", "pending").limit(5),
         db.from("no_show_cases").select("*, members(first_name, last_name, member_code, phone)")
@@ -40,19 +48,40 @@ export async function GET() {
         db.from("payments").select("id, amount, members(first_name, last_name, member_code)")
           .eq("gym_id", ctx.gymId).eq("status", "failed").limit(10),
         db.from("memberships").select("id, member_id").eq("gym_id", ctx.gymId).eq("status", "active"),
+        db.from("attendance").select("checked_in_at")
+          .eq("gym_id", ctx.gymId).gte("checked_in_at", trendStart.toISOString()),
+        db.from("attendance").select("id", { count: "exact", head: true })
+          .eq("gym_id", ctx.gymId).gte("checked_in_at", yesterdayStart.toISOString()).lt("checked_in_at", todayStart.toISOString()),
       ]);
 
     const revenueMonth = (revenue.data ?? []).reduce((s, p) => s + Number(p.amount), 0);
+    const revenuePrevMonth = (revenuePrev.data ?? []).reduce((s, p) => s + Number(p.amount), 0);
     const activeIds = new Set((redList.data ?? []).map((r) => r.member_id));
+
+    // Check-ins grouped per local day over the last 14 days, zeros included (docs §15)
+    const dayKey = (d: Date) =>
+      `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+    const buckets = new Map<string, number>();
+    for (const row of trendRows.data ?? []) {
+      const key = dayKey(new Date(row.checked_in_at));
+      buckets.set(key, (buckets.get(key) ?? 0) + 1);
+    }
+    const checkinTrend = Array.from({ length: 14 }, (_, i) => {
+      const d = new Date(Date.now() - (13 - i) * 86_400_000);
+      return { date: dayKey(d), count: buckets.get(dayKey(d)) ?? 0 };
+    });
 
     return ok({
       kpis: {
         totalMembers: members.count ?? 0,
         activeMembers: active.count ?? 0,
         checkinsToday: checkinsToday.count ?? 0,
+        checkinsYesterday: checkinsYesterday.count ?? 0,
         active7d: active7.count ?? 0,
         revenueMonth,
+        revenuePrevMonth,
       },
+      checkinTrend,
       expiringSoon: expiring.data ?? [],
       actionCenter: {
         noShowCases: followups.data ?? [],

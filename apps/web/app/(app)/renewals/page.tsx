@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { Card, PageHeader, Skeleton, StatusBadge, ErrorState, Button, useToast } from "@/components/ui";
-import { RefreshCcw } from "lucide-react";
 import Link from "next/link";
 
 interface PipelineRow {
@@ -81,7 +80,7 @@ export default function RenewalsPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-small">
               <thead>
-                <tr className="border-b border-line text-left text-caption uppercase text-text-low">
+                <tr className="border-b border-line text-left text-caption text-text-low">
                   <th className="px-5 py-3">Member</th>
                   <th className="px-5 py-3">Plan</th>
                   <th className="px-5 py-3">Expires</th>
@@ -100,12 +99,8 @@ export default function RenewalsPage() {
                       <span className="ml-2 text-caption text-text-low">{m.members?.member_code}</span>
                     </td>
                     <td className="px-5 py-3 text-text-mid">{m.plans?.name} {m.plans ? `· ${inr(m.plans.price)}` : ""}</td>
-                    <td className="px-5 py-3 text-text-mid">{m.expiry_date}</td>
-                    <td className="px-5 py-3">
-                      <span className="inline-flex items-center gap-1.5 text-small text-warning">
-                        <RefreshCcw size={13} aria-hidden /> {m.stage.replace("_", " ")}
-                      </span>
-                    </td>
+                    <td className="px-5 py-3 text-text-mid">{new Date(m.expiry_date).toLocaleDateString("en-IN", { dateStyle: "medium" })}</td>
+                    <td className="px-5 py-3 capitalize text-text-mid">{m.stage.replace("_", " ")}</td>
                     <td className="px-5 py-3"><StatusBadge status={m.status} /></td>
                     <td className="px-5 py-3 text-right">
                       {m.stage !== "renewed" && (

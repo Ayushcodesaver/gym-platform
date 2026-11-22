@@ -74,7 +74,7 @@ export default function SettingsPage() {
               })}
               hint="A member can check in again after this window" />
             <label className="flex items-center gap-3 text-small">
-              <input type="checkbox" className="h-5 w-5 accent-[#F97316]"
+              <input type="checkbox" className="h-5 w-5 accent-accent"
                 checked={settings.renewal_settings?.reminders_enabled ?? true}
                 onChange={(e) => setSettings({
                   ...settings,
